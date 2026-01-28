@@ -3,5 +3,8 @@ Statistical analysis for masters thesis entitled:  Growth Characteristics of Hum
 
 
 
-Six Bacteroidota Species: **Bacteroides cellulosilyticus, Bacteroides ovatus, Bacteroides stercoris, B. thetaiotaomicron, Bacteroides xylanisolvens, & P. vulgatus*
+Six Bacteroidota Species: *Bacteroides cellulosilyticus, Bacteroides ovatus, Bacteroides stercoris, B. thetaiotaomicron, Bacteroides xylanisolvens, & P. vulgatus*
+
+
+
 8 substrates: NO CHO (Negative Control, Basal media with no added carbohydrates), Glucose (Positive Control), Apple Pectin, Beta-D-glucan, Galactomannan, Potato Starch, Xylan, & Xyloglucan
