@@ -2298,46 +2298,113 @@ anova(relative_16S)
 
 
 #maximmum OD for the synthetic community
-relative_maxod<- lm(MAXOD~Substrate, data=correlation_three)
+relative_maxod<- lm(MAXOD~Substrate, data=correlation_four)
+anova(relative_maxod)
+# Analysis of Variance Table
+# 
+# Response: MAXOD
+# Df   Sum Sq   Mean Sq F value    Pr(>F)    
+# Substrate  7 0.149384 0.0213405  16.201 3.627e-06 ***
+#   Residuals 16 0.021076 0.0013172                      
+# ---
+#   Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 summary(relative_maxod)
+# Call:
+#   lm(formula = MAXOD ~ Substrate, data = correlation_four)
+# 
+# Residuals:
+#   Min       1Q   Median       3Q      Max 
+# -0.08617 -0.01121 -0.00225  0.01158  0.06933 
+# 
+# Coefficients:
+#   Estimate Std. Error t value Pr(>|t|)    
+# (Intercept)             0.15500    0.02095   7.397 1.51e-06 ***
+#   SubstrateGlucose        0.25500    0.02963   8.605 2.13e-07 ***
+#   SubstrateApple_Pectin   0.27083    0.02963   9.139 9.46e-08 ***
+#   SubstrateB_D_glucan     0.18611    0.02963   6.280 1.10e-05 ***
+#   SubstrateGalactomannan  0.17561    0.02963   5.926 2.13e-05 ***
+#   SubstratePotato_Starch  0.18978    0.02963   6.404 8.73e-06 ***
+#   SubstrateXylan          0.21306    0.02963   7.190 2.15e-06 ***
+#   SubstrateXyloglucan     0.23678    0.02963   7.990 5.64e-07 ***
+#   ---
+#   Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+# 
+# Residual standard error: 0.03629 on 16 degrees of freedom
+# Multiple R-squared:  0.8764,	Adjusted R-squared:  0.8223 
+# F-statistic:  16.2 on 7 and 16 DF,  p-value: 3.627e-06
 
-aov_max<-aov(relative_maxod)
-TukeyHSD(aov_max, conf.level=0.95)
-# Tukey multiple comparisons of means
-# 95% family-wise confidence level
-# 
-# Fit: aov(formula = relative_maxod)
-# 
-# $Substrate
-# diff         lwr         upr     p adj
-# Glucose-NO_CHO               0.255000000  0.15240305 0.357596948 0.0000048
-# Apple_Pectin-NO_CHO          0.270833333  0.16823639 0.373430281 0.0000022
-# B_D_glucan-NO_CHO            0.186111111  0.08351416 0.288708058 0.0002318
-# Galactomannan-NO_CHO         0.175611111  0.07301416 0.278208058 0.0004431
-# Potato_Starch-NO_CHO         0.189777777  0.08718083 0.292374725 0.0001855
-# Xylan-NO_CHO                 0.213055555  0.11045861 0.315652503 0.0000470
-# Xyloglucan-NO_CHO            0.236777777  0.13418083 0.339374725 0.0000126
-# Apple_Pectin-Glucose         0.015833333 -0.08676361 0.118430281 0.9992205
-# B_D_glucan-Glucose          -0.068888889 -0.17148584 0.033708058 0.3383806
-# Galactomannan-Glucose       -0.079388889 -0.18198584 0.023208058 0.1984651
-# Potato_Starch-Glucose       -0.065222223 -0.16781917 0.037374725 0.3997773
-# Xylan-Glucose               -0.041944445 -0.14454139 0.060652503 0.8377276
-# Xyloglucan-Glucose          -0.018222223 -0.12081917 0.084374725 0.9980972
-# B_D_glucan-Apple_Pectin     -0.084722223 -0.18731917 0.017874725 0.1474603
-# Galactomannan-Apple_Pectin  -0.095222223 -0.19781917 0.007374725 0.0791303
-# Potato_Starch-Apple_Pectin  -0.081055556 -0.18365250 0.021541391 0.1811674
-# Xylan-Apple_Pectin          -0.057777778 -0.16037473 0.044819170 0.5400154
-# Xyloglucan-Apple_Pectin     -0.034055556 -0.13665250 0.068541392 0.9352080
-# Galactomannan-B_D_glucan    -0.010500000 -0.11309695 0.092096948 0.9999483
-# Potato_Starch-B_D_glucan     0.003666666 -0.09893028 0.106263614 1.0000000
-# Xylan-B_D_glucan             0.026944445 -0.07565250 0.129541392 0.9807003
-# Xyloglucan-B_D_glucan        0.050666667 -0.05193028 0.153263614 0.6818624
-# Potato_Starch-Galactomannan  0.014166666 -0.08843028 0.116763614 0.9996212
-# Xylan-Galactomannan          0.037444445 -0.06515250 0.140041392 0.8995022
-# Xyloglucan-Galactomannan     0.061166667 -0.04143028 0.163763614 0.4740898
-# Xylan-Potato_Starch          0.023277778 -0.07931917 0.125874726 0.9915942
-# Xyloglucan-Potato_Starch     0.047000000 -0.05559695 0.149596948 0.7517595
-# Xyloglucan-Xylan             0.023722222 -0.07887473 0.126319170 0.9906152
+maxOD_plateTukey <- aov(relative_maxod)
+
+par(mar=c(5,6,8,1)+.1)
+plot(TukeyHSD(maxOD_plateTukey, conf.level=.95), las = 2)
+
+
+
+#TukeyHSD plot for When symbol bar is red it has a p<0.01
+par(mar=c(6,4,4,2)+.1)
+
+
+tuk_plate <- TukeyHSD(maxOD_plateTukey, conf.level = 0.95)$Substrate
+
+tuk_df <- as.data.frame(tuk_plate)
+tuk_df$Comparison <- rownames(tuk_plate)
+
+# Replace species codes with names
+for (code in names(species_map)) {
+  tuk_df$Comparison <- gsub(code, species_map[code], tuk_df$Comparison)
+}
+
+# Identify significance
+tuk_df$Significant <- tuk_df$`p adj` < 0.05
+
+
+#Makes it an order comparison
+tuk_df$Comparison <- factor(
+  tuk_df$Comparison,
+  levels = rev(tuk_df$Comparison)
+)
+
+# Colors
+cols <- ifelse(tuk_df$Significant, "red", "black")
+
+#make the yplot
+y_pos <- seq_len(nrow(tuk_df))
+
+# Plot points
+plot(
+  tuk_df$diff,
+  y_pos,
+  xlim = range(c(tuk_df$lwr, tuk_df$upr)),
+  yaxt = "n",
+  ylab = "",
+  xlab = "Differences in Mean Levels between Species in 96-well Plate",
+  pch = 16,
+  col = cols,
+  cex = 0.9
+)
+
+# Add confidence intervals
+segments(
+  tuk_df$lwr,
+  y_pos,
+  tuk_df$upr,
+  y_pos,
+  col = cols,
+  lwd = 2
+)
+
+# Add vertical zero line
+abline(v = 0, lty = 2)
+
+# Add species comparison labels
+axis(
+  2,
+  at = y_pos,
+  labels = tuk_df$Comparison,
+  las = 2,
+  cex.axis = 0.8
+)
+
 
 #########
 #For relative abundance
@@ -2545,4 +2612,5 @@ axis(
   las = 2,
   cex.axis = 0.8
 )
+
 
