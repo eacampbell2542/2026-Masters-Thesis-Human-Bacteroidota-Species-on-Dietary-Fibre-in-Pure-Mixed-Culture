@@ -146,7 +146,64 @@ TukeyHSD(fermenter_copies_posthoc, conf.level=.95)
 par(mar=c(5,6,4,1)+.1)
 plot(TukeyHSD(fermenter_copies_posthoc, conf.level=.95), las = 2)
 
+###
+#16S rRNA checked homogenity & normality
+###
+library(lmtest)
+library(emmeans)
+Fermenter_Copies_both_2<-lm(log(Copies)~Substrate*Phase, data=Fermenter_16S)
+coeftest(Fermenter_Copies_both_2, vcov = vcovHC(Fermenter_Copies_both_2, type="HC3"))
+# t test of coefficients:
+#   
+#   Estimate Std. Error t value  Pr(>|t|)    
+# (Intercept)                           18.28878    0.60544 30.2076 < 2.2e-16 ***
+#   SubstrateApple_Pectin                  4.17976    0.60670  6.8894 6.424e-07 ***
+#   SubstratePotato_Starch                 4.38903    0.64409  6.8143 7.592e-07 ***
+#   SubstrateXylan                         4.19033    0.62243  6.7322 9.124e-07 ***
+#   SubstrateGlucose                       3.95729    0.64361  6.1486 3.451e-06 ***
+#   SubstrateBasal                        -0.14265    0.30124 -0.4736    0.6405    
+# PhaseContinous                         4.22083    0.62641  6.7381 9.004e-07 ***
+#   SubstrateApple_Pectin:PhaseContinous  -4.04394    0.63291 -6.3894 1.983e-06 ***
+#   SubstratePotato_Starch:PhaseContinous -4.25535    0.67150 -6.3371 2.235e-06 ***
+#   SubstrateXylan:PhaseContinous         -4.20267    0.65070 -6.4586 1.693e-06 ***
+#   SubstrateGlucose:PhaseContinous       -3.96934    0.66412 -5.9768 5.144e-06 ***
+#   ---
+#   Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
+emmeans(Fermenter_Copies_both_2, ~ Phase | Substrate)
+# emmeans(Fermenter_Copies_both_2, ~ Phase | Substrate)
+# Substrate = Mix:
+#   Phase     emmean    SE df lower.CL upper.CL
+# Batch       18.3 0.191 22     17.9     18.7
+# Continous   22.5 0.191 22     22.1     22.9
+# 
+# Substrate = Apple_Pectin:
+#   Phase     emmean    SE df lower.CL upper.CL
+# Batch       22.5 0.191 22     22.1     22.9
+# Continous   22.6 0.191 22     22.2     23.0
+# 
+# Substrate = Potato_Starch:
+#   Phase     emmean    SE df lower.CL upper.CL
+# Batch       22.7 0.191 22     22.3     23.1
+# Continous   22.6 0.191 22     22.2     23.0
+# 
+# Substrate = Xylan:
+#   Phase     emmean    SE df lower.CL upper.CL
+# Batch       22.5 0.191 22     22.1     22.9
+# Continous   22.5 0.191 22     22.1     22.9
+# 
+# Substrate = Glucose:
+#   Phase     emmean    SE df lower.CL upper.CL
+# Batch       22.2 0.191 22     21.8     22.6
+# Continous   22.5 0.191 22     22.1     22.9
+# 
+# Substrate = Basal:
+#   Phase     emmean    SE df lower.CL upper.CL
+# Batch     nonEst    NA NA       NA       NA
+# Continous   22.4 0.191 22     22.0     22.8
+# 
+# Results are given on the log (not the response) scale. 
+# Confidence level used: 0.95 
 
 
 
