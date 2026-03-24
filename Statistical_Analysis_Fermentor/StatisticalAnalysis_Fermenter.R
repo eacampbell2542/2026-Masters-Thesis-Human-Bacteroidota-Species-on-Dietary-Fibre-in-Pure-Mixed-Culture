@@ -146,12 +146,16 @@ TukeyHSD(fermenter_copies_posthoc, conf.level=.95)
 par(mar=c(5,6,4,1)+.1)
 plot(TukeyHSD(fermenter_copies_posthoc, conf.level=.95), las = 2)
 
-###
+#############################################
 #16S rRNA checked homogenity & normality
-###
+###############################################
 library(lmtest)
 library(emmeans)
+
 Fermenter_Copies_both_2<-lm(log(Copies)~Substrate*Phase, data=Fermenter_16S)
+par(mfrow = c(2,2)
+plot(Fermenter_Copies_both_2)
+
 coeftest(Fermenter_Copies_both_2, vcov = vcovHC(Fermenter_Copies_both_2, type="HC3"))
 # t test of coefficients:
 #   
